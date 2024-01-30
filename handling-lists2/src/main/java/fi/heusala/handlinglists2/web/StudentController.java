@@ -15,9 +15,9 @@ import fi.heusala.handlinglists2.domain.Student;
 public class StudentController {
 
     @GetMapping("hello")
-    public String showMessage(@RequestParam String firstname, @RequestParam String lastname, Model model) {
-        model.addAttribute("firstname", firstname);
-        model.addAttribute("lastname", lastname);
+    public String showMessage(@RequestParam String firstName, @RequestParam String lastName, Model model) {
+        model.addAttribute("firstName", firstName);
+        model.addAttribute("lastName", lastName);
         return "hello";
     }
 
