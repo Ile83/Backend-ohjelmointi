@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Server Programming with Spring Boot harkka 1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p
+      th:text="'Welcome to the Haaga-Helia! ' + ${name} + '!' + ${age} + ' ikä' "
+    />
+    <div th:if="${age} &lt; 18">olet alaikäinen</div>
+    <div th:if="${age} &gt; 18">olet täysi ikäinen</div>
+  </body>
+</html>
