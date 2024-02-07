@@ -31,9 +31,11 @@ public class BookstoreApplication {
 			System.out.println("Tulostetaan demodata Iden konsoliin");
 
 			for (Book book : bookRepository.findAll()) {
-				System.out.println(book.toString());
+				System.out.println(book.toString()); // konsoliin ei kyllä logaudu oikeat tiedot.
 
-				System.out.println("Kirjan tiedot: " + book.toString());
+				System.out.println("Kirjan tiedot: " + book.toString()); // konsoliin ei kyllä logaudu oikeat tiedot.
+																			// katso application properties tiedostosta,
+																			// voi ratkaista ongelman.
 
 			}
 
