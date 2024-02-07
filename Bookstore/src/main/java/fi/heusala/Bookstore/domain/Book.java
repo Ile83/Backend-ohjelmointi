@@ -40,7 +40,7 @@ public class Book {
         // tehtävästä
     }
 
-    public Book(String title, String author, int publicationYear, String isbn, double price) {
+    public Book(String title, String author, int publicationYear, String isbn, double price, Category category) {
 
         super();
         this.title = title;
@@ -48,10 +48,7 @@ public class Book {
         this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
-    }
-
-    public Book(String string, String string2, int i, String string3, int j, Category category1) {
-        // TODO Auto-generated constructor stub
+        this.category = category;
     }
 
     public String getTitle() {
