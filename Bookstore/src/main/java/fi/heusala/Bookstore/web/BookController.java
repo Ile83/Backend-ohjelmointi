@@ -1,7 +1,5 @@
 package fi.heusala.Bookstore.web;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import fi.heusala.Bookstore.domain.Book;
 import fi.heusala.Bookstore.domain.BookRepository;
+import fi.heusala.Bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 
-    @Autowired // mikä tämä on?
+    @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    // Näytttää kaikki kirjat
     @GetMapping("/booklist")
     public String showBooks(Model model) {
         model.addAttribute("books", bookRepository.findAll());
@@ -35,26 +38,32 @@ public class BookController {
     // templateen index.html tiedostoa, kun en tiennyt pitikö se jo tehdä tehtävän
     // annosta.
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add") // lisää kirja
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST) /// save ei toimi, Syntax error on token ""/save"",
-                                                                  /// invalid MemberValuePairs
+    @RequestMapping(value = "/save", method = RequestMethod.POST) // tallentaa kirjan
+
     public String save(Book book) {
         bookRepository.save(book);
         return "redirect:booklist";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteBook(@PathVariable("id") Long bookId, Model model) { // By using @PathVariable annotation Spring
-                                                                             // extracts id from the URI, en ymmärrä
-                                                                             // tätä?
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET) // poistaa kirjan
+    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 
         bookRepository.deleteById(bookId);
         return "redirect:../booklist";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET) // muokkaa kirjaa
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+        model.addAttribute("book", bookRepository.findById(bookId));
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "editbook";
     }
 
 }

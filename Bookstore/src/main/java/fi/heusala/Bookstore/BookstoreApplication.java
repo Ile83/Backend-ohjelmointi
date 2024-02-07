@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import fi.heusala.Bookstore.domain.Book;
 import fi.heusala.Bookstore.domain.BookRepository;
+import fi.heusala.Bookstore.domain.Category;
+import fi.heusala.Bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -17,16 +19,27 @@ public class BookstoreApplication {
 
 	@Bean // tämä puuttui, mutta en tiedä mitä se tekee (ajaa pavun sovelluksen
 			// käynnistyessä)
-	public CommandLineRunner createDemoData(BookRepository bookRepository) {
+
+	public CommandLineRunner createDemoData(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {
-			System.out.println("Luodaan demodataa H2-kantaan"); // h2-kanta on tietokanta, joka on käytössä
+			System.out.println("Luodaan demodataa H2-kantaan");
+
+			Category category1 = new Category("Dekkari");
+			Category category2 = new Category("Scifi");
+			Category category3 = new Category("Fantasia");
+
+			categoryRepository.save(category1);
+			categoryRepository.save(category2);
+			categoryRepository.save(category3);
+
+			// h2-kanta on tietokanta, joka on käytössä
 			// tallennetaan muutama kirja Private string title, author, int publicationYear,
 			// String isbn, double price
-			bookRepository.save(new Book("Kirja1 ", "Kirjailija Kirjoittaja1", 2001, "ISBN1", 11));
-			bookRepository.save(new Book("Kirja2 ", "Kirjailija Kirjoittaja2", 2002, "ISBN2", 12));
-			bookRepository.save(new Book("Kirja3 ", "Kirjailija Kirjoittaja3", 2003, "ISBN3", 13)); // kehitysvaiheessa,
-																									// mutta ei
-																									// tuotannossa
+			bookRepository.save(new Book("Kirja1 ", "Kirjailija Kirjoittaja1", 2001, "ISBN1", 11, category1));
+			bookRepository.save(new Book("Kirja2 ", "Kirjailija Kirjoittaja2", 2002, "ISBN2", 12, category2));
+			bookRepository.save(new Book("Kirja3 ", "Kirjailija Kirjoittaja3", 2003, "ISBN3", 13, category3)); // kehitysvaiheessa,
+			// mutta ei
+			// tuotannossa
 
 			System.out.println("Tulostetaan demodata Iden konsoliin");
 
