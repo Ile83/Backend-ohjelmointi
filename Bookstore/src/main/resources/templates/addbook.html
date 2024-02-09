@@ -28,6 +28,13 @@
 				<td><input type="number" id="price" th:field="*{price}" /></td>
 			</tr>
 			<tr>
+				<th><label for="catlist">Category</label></th>
+				<td>
+					<select id="catlist" th:field="*{category}" class="form-control">
+						<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+					</select>
+				</td>
+			<tr>
 				<td><input class="btn btn-success" type="submit" value="Save"></input></td>
 			</tr>
 		</form>
