@@ -5,6 +5,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
+<div class="col-md-4">
+	Username: <span  sec:authentication="name">Name</span>
+	
+</div>
+<div class="col-md-4" style="padding:20px 0">
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+	</form>
+</div>
 <h1>Books</h1>
 <table class="table table-striped">
 	<tr>
@@ -28,7 +37,7 @@
 		<td><a th:href="@{/edit/{id}(id=${book.id})}"> 
 			<button class="btn btn-primary">Edit</button>
 		</a></td>
-		<td><a th:href="@{/delete/{id}(id=${book.id})}">
+		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">
 			<button class="btn btn-danger">Delete</button>
 		</a></td>
 	</tr>

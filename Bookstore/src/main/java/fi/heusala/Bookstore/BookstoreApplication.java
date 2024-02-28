@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import fi.heusala.Bookstore.domain.AppUser;
+import fi.heusala.Bookstore.domain.AppUserRepository;
 import fi.heusala.Bookstore.domain.Book;
 import fi.heusala.Bookstore.domain.BookRepository;
 import fi.heusala.Bookstore.domain.Category;
@@ -20,7 +22,8 @@ public class BookstoreApplication {
 	@Bean // tämä puuttui, mutta en tiedä mitä se tekee (ajaa pavun sovelluksen
 			// käynnistyessä)
 
-	public CommandLineRunner createDemoData(BookRepository bookRepository, CategoryRepository categoryRepository) {
+	public CommandLineRunner createDemoData(BookRepository bookRepository, CategoryRepository categoryRepository,
+			AppUserRepository urepository) {
 		return (args) -> {
 			System.out.println("Luodaan demodataa H2-kantaan");
 
@@ -40,6 +43,14 @@ public class BookstoreApplication {
 			bookRepository.save(new Book("Kirja3 ", "Kirjailija Kirjoittaja3", 2003, "ISBN3", 13, category3)); // kehitysvaiheessa,
 			// mutta ei
 			// tuotannossa
+
+			// Create users: admin/admin user/user
+			AppUser user1 = new AppUser("user", "$2a$10$k3dXqAiLCXzJeMz7rXKH0OgqMnSwu6/SeLej2jSrrlAJcpAxrwZ3u", "USER");
+			AppUser user2 = new AppUser("admin", "$2a$10$1AcJdbfKMbL9.9e8JA1TyOWChGUJAwftbvDSQBdX0R3oodOv9dyuG",
+					"ADMIN");
+
+			urepository.save(user1);
+			urepository.save(user2);
 
 			System.out.println("Tulostetaan demodata Iden konsoliin");
 
