@@ -1,6 +1,7 @@
 package fi.heusala.Bookstore.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+//import jakarta.validation.Valid;
 import fi.heusala.Bookstore.domain.Book;
 import fi.heusala.Bookstore.domain.BookRepository;
 import fi.heusala.Bookstore.domain.CategoryRepository;
@@ -15,11 +17,15 @@ import fi.heusala.Bookstore.domain.CategoryRepository;
 @Controller
 public class BookController {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private static final Logger log = LoggerFactory.getLogger(Controller.class);
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
+
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
+        this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     // Näytttää kaikki kirjat
     @GetMapping("/booklist")
