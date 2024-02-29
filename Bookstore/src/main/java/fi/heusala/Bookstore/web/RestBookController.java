@@ -33,11 +33,14 @@ public class RestBookController {
     }
 
     @GetMapping("/book/{id}")
-    public Optional<Book> getOneBook(@PathVariable Long bookId) {
-        log.info("Fetching one book with id " + bookId + " from db and returning it as JSON");
-        return bookRepository.findById(bookId);
+    public Optional<Book> getOneBook(@PathVariable Long id) {
+        log.info("Fetching one book with id " + id + " from db and returning it as JSON");
+        return bookRepository.findById(idd);
     }
-    // Testaa nämä postman sovelluksella
+    // Testaa nämä postman sovelluksella, ei toimi koska tein autentikonnin ennen
+    // tätä. En saa postmanista ulos kuin ilmeisesti login sivun lähdekoodin. En
+    // tiedä miten saan sen toimimaan.
+
     // @PostMapping("/book")
     // Book newBook(@RequestBody Book newBook) {
     // log.info("Saving new book to db" + newBook);
