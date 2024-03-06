@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.heusala.Bookstore.domain.Book;
@@ -41,19 +41,20 @@ public class RestBookController {
     // tätä. En saa postmanista ulos kuin ilmeisesti login sivun lähdekoodin. En
     // tiedä miten saan sen toimimaan.
 
-    // @PostMapping("/book")
-    // Book newBook(@RequestBody Book newBook) {
-    // log.info("Saving new book to db" + newBook);
-    // return bookRepository.save(newBook);
+    @PostMapping("/book")
+
+    Book newBook(@RequestBody Book newBook) {
+        log.info("Saving new book to db" + newBook);
+        return bookRepository.save(newBook);
+    }
+
+    @PutMapping("/book/{id}")
+    Book editBook(@RequestBody Book editedBook, @PathVariable Long id) {
+        log.info("editBook = " + editedBook);
+        log.info("edit book, id = " + id);
+        editedBook.setId(id);
+        log.info("editBook = " + editedBook);
+        return bookRepository.save(editedBook);
+    }
+
 }
-
-// @PutMapping("/book/{id}")
-// Book editBook(@RequestBody Book editedBook, @PathVariable Long id) {
-// log.info("editBook = " + editedBook);
-// log.info("edit book, id = " + id);
-// editedBook.setId(id);
-// log.info("editBook = " + editedBook);
-// return bookRepository.save(editedBook);
-// }
-
-// }
