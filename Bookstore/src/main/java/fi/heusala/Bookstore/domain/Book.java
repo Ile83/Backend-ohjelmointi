@@ -1,5 +1,6 @@
 package fi.heusala.Bookstore.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Book {
     // @Size(min = 2, max = 250)
     private String author;
     // @Size(min = 4, max = 4)
+    @Column(name = "publicationyear", nullable = false)
     private int publicationYear;
     // @Size(min = 1, max = 13)
     private String isbn;

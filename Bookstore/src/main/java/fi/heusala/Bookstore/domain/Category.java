@@ -10,7 +10,9 @@ import jakarta.persistence.*;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long categoryid;
+
     private String name;
 
     @JsonIgnore
